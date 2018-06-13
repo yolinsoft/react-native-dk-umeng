@@ -51,9 +51,11 @@ public class PushModule extends ReactContextBaseJavaModule {
     public String getName() {
         return "UMPushModule";
     }
+
     private static void runOnMainThread(Runnable runnable) {
         mSDKHandler.postDelayed(runnable, 0);
     }
+
     @ReactMethod
     public void addTag(String tag, final Callback successCallback) {
         mPushAgent.getTagManager().addTags(new TagManager.TCallBack() {
@@ -177,6 +179,7 @@ public class PushModule extends ReactContextBaseJavaModule {
             UmengMessageDeviceConfig.getAppVersionCode(context), UmengMessageDeviceConfig.getAppVersionName(context));
         successCallback.invoke("应用包名:" + pkgName + "\n" + info);
     }
+    
     private WritableMap resultToMap(ITagManager.Result result){
         WritableMap map = Arguments.createMap();
         if (result!=null){
@@ -189,6 +192,7 @@ public class PushModule extends ReactContextBaseJavaModule {
         }
         return map;
     }
+
     private WritableArray resultToList(List<String> result){
         WritableArray list = Arguments.createArray();
         if (result!=null){
@@ -198,5 +202,14 @@ public class PushModule extends ReactContextBaseJavaModule {
         }
         Log.e("xxxxxx","list="+list);
         return list;
+    }
+
+    /*
+    * 获取设备id
+    */
+    @ReactMethod
+    public void getDeviceToken(Callback callback) {
+        String registrationId = mPushAgent.getRegistrationId();
+        callback.invoke(registrationId);
     }
 }

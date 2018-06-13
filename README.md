@@ -1,28 +1,32 @@
-# react native 腾讯云通讯插件
+# react native 友盟  分享、推送、统计
 
-云通信（Instant Messaging）承载亿级 QQ 用户即时通信技术，数十年技术积累，腾讯云为您提供超乎寻常即时通信聊天服务。
+帮助应用或游戏快速具备国内外多平台分享、第三方登录功能，SDK 包最小，集成成本最低，平台覆盖最全，并基于友盟+大数据，提供最为权威、实时的用户画像、分享回流等数据分析，助力产品开发与推广。
+
+基于【友盟+】全域数据建立与用户直接沟通的渠道。极简接入后，即可主动推送消息给 App 的终端用户，让用户实时实地的获取相关信息。可有效提升用户粘性，提高 App 活跃度。
+
+国内专业的移动应用统计分析平台。我们帮助移动应用开发商统计和分析流量来源、内容使用、用户属性和行为数据，以便开发商利用数据进行产品、运营、推广策略的决策。
 
 ### 安装
 
+暂无介绍
+
 #### ios
 
- 添加以下依赖库
-
-CoreTelephony.framework  
-SystemConfiguration.framework  
-libstdc++.6.dylib  
-libc++.dylib  
-libz.dylib  
-libsqlite3.dylib
+暂无介绍
 
 ### 方法
 
-| 方法名        | 参数                                    | 类型 | 描述                                                                               |
-| ------------- | --------------------------------------- | ---- | ---------------------------------------------------------------------------------- |
-| initSDK       | {sdkAppId:'',accountType:''}            | func | 设置 SDK 配置信息<br/>sdkAppId 应用 ID<br/>accountType 帐号体系                    |
-| setUserConfig | {enableReadReceipt:true,accountType:''} | func | 设置用户的配置信息<br>enableReadReceipt 开启 C2C 已读回执<br/>accountType 帐号体系 |
+#### 分享
+
+| 方法名   | 参数     | 类型 | 描述 |
+| -------- | -------- | ---- | ---- |
+| function | {params} | func | mark |
+
+#### 推送
+
+#### 统计
 
 集成问题
 
 > 注意：  
-> 使用互动直播业务的开发者，请集成 ImSDKv2 版本。
+> 注意事项

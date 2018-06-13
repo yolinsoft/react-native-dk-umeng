@@ -8,9 +8,13 @@
 
 ### 安装
 
+> yarn add react-native-dk-umeng
+
+#### 集成到 android
+
 暂无介绍
 
-#### ios
+#### 集成到 ios
 
 暂无介绍
 
@@ -24,9 +28,40 @@
 
 #### 推送
 
+| 方法名            | 参数 | 类型    | 描述                           |
+| ----------------- | ---- | ------- | ------------------------------ |
+| getDeviceToken    | 无   | promise | 获取 DeviceToken               |
+| didReceiveMessage | 无   | promise | 接收到推送消息回调的方法       |
+| didOpenMessage    | 无   | promise | 点击推送消息打开应用回调的方法 |
+
 #### 统计
 
-集成问题
+### 集成问题
 
-> 注意：  
-> 注意事项
+#### 1.安卓集成获取不到 deviceToken 问题
+
+确定是否将 appkey、MessageSecret、以及包名都更换为开发者所申请的相应值
+
+如果获取不到 deviceToken 也接收不到推送，请查看友盟后台的包名是否一致，当前设备是否添加到测试设备当中
+
+Android Studio 中 gradle 的版本需要在 1.5.0 或者以上
+
+更多 DeviceToken 相关问题，[请参考 Device_token 相关问题整理【安卓版】](http://bbs.umeng.com/thread-15233-1-1.html)
+
+### 示例
+
+```
+import { UMPush, UMShare, UMAnalytics } from 'react-native-dk-umeng';
+
+UMPush.getDeviceToken().then(token => {
+  console.warn(['getDeviceToken', token]);
+});
+
+UMPush.didReceiveMessage().then(res => {
+  console.warn(['didReceiveMessage', res]);
+});
+
+UMPush.didOpenMessage().then(res => {
+  console.warn(['didOpenMessage', res]);
+});
+```

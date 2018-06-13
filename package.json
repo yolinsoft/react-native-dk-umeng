@@ -1,11 +1,19 @@
 {
   "name": "react-native-dk-umeng",
   "version": "1.0.0",
-  "description": "",
+  "description": "react native 友盟分享、推送、统计",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Magic",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yolinsoft/react-native-dk-umeng.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yolinsoft/react-native-dk-umeng/issues"
+  },
+  "homepage": "https://github.com/yolinsoft/react-native-dk-umeng#readme"
 }

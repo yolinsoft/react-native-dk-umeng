@@ -11,7 +11,10 @@
 //#import <UShareUI/UShareUI.h>
 #import <React/RCTConvert.h>
 #import <React/RCTEventDispatcher.h>
-
+//#import <MessageUI/MessageUI.h>
+@interface UMShareModule()
+@property (nonatomic, strong) UIViewController *smsViewController;
+@end
 @implementation UMShareModule
 
 RCT_EXPORT_MODULE();
@@ -109,11 +112,10 @@ RCT_EXPORT_MODULE();
 - (void)shareWithText:(NSString *)text icon:(NSString *)icon link:(NSString *)link title:(NSString *)title platform:(NSInteger)platform completion:(UMSocialRequestCompletionHandler)completion
 {
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
-    
     if (link.length > 0) {
         UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:title descr:text thumImage:icon];
         shareObject.webpageUrl = link;
-        
+
         messageObject.shareObject = shareObject;
     } else if (icon.length > 0) {
         id img = nil;
@@ -130,24 +132,69 @@ RCT_EXPORT_MODULE();
         shareObject.thumbImage = img;
         shareObject.shareImage = img;
         messageObject.shareObject = shareObject;
-        
+
         messageObject.text = text;
     } else if (text.length > 0) {
         messageObject.text = text;
-    } else {
+    }else {
         if (completion) {
             completion(nil, [NSError errorWithDomain:@"UShare" code:-3 userInfo:@{@"message": @"invalid parameter"}]);
             return;
         }
     }
-    
     [[UMSocialManager defaultManager] shareToPlatform:platform messageObject:messageObject currentViewController:nil completion:completion];
 }
 
++(BOOL)handleOpenURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication  annotation:(id)annotation{
+    BOOL result =  [[UMSocialManager defaultManager]handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
+     [[UMShareListener new]shareResult:result];
+    return result;
+}
++(BOOL)handleOpenURL:(NSURL *)url{
+    BOOL result = [[UMSocialManager defaultManager]handleOpenURL:url];
+    [[UMShareListener new]shareResult:result];
+    return result;
+}
+//是否安装某个平台
+RCT_EXPORT_METHOD(isInstall:(NSInteger)param resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject){
+     UMSocialPlatformType plf = [self platformType:param];
+    if ( [[UMSocialManager defaultManager]isInstall:plf]) {
+        resolve(@(0));
+    } else {
+        reject(@"1",@"未安装该平台",nil);
+    }
+}
 
-RCT_EXPORT_METHOD(shareContent:(NSString *)text icon:(NSString *)icon link:(NSString *)link title:(NSString *)title platform:(NSString *)platform resolver:(RCTPromiseResolveBlock)resolve
+// 当前平台是否支持分享
+RCT_EXPORT_METHOD(isSupport:(NSInteger)param resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject){
+    UMSocialPlatformType plf = [self platformType:param];
+    if ([[UMSocialManager defaultManager]isSupport:plf]) {
+        resolve(@(0));
+    } else {
+        reject(@"1",@"本平台不支持分享",nil);
+    }
+}
+
+//获取客户端安装平台
+RCT_EXPORT_METHOD(clientInstallPlatform:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject){
+    if ([UMSocialManager defaultManager].platformTypeArray.count > 0) {
+        resolve([UMSocialManager defaultManager].platformTypeArray);
+    }else{
+         reject(@"1",@"客户端未安装任何分享平台",nil);
+    }
+}
+
+RCT_EXPORT_METHOD(share:(NSDictionary*)params resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
+    NSString *text  = params[@"text"];
+    NSString *icon  = params[@"image"];;
+    NSString *link  = params[@"weburl"];;
+    NSString *title  = params[@"title"];;
+    NSString *platform  = params[@"sharemedia"];;
     
     UMSocialPlatformType plf = [self platformType:platform.integerValue];
     if (plf == UMSocialPlatformType_UnKnown) {
@@ -157,7 +204,7 @@ RCT_EXPORT_METHOD(shareContent:(NSString *)text icon:(NSString *)icon link:(NSSt
             return;
         }
     }
-    
+//    UMShareSmsObject
     [self shareWithText:text icon:icon link:link title:title platform:plf completion:^(id result, NSError *error) {
         
         if (error) {
@@ -215,16 +262,31 @@ RCT_EXPORT_METHOD(shareboard:(NSString *)text icon:(NSString *)icon link:(NSStri
     //  }];
 }
 
-
-RCT_EXPORT_METHOD(setAccount:(NSString*)plaform appkey:(NSString*)appkey appSecret:(NSString*)appSecret redirectURL:(NSString*)redirectURL resolver:(RCTPromiseResolveBlock)resolve
+//设置平台
+RCT_EXPORT_METHOD(setAccount:(NSDictionary*)params resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject){
+    
     [UMSocialGlobal shareInstance].isUsingHttpsWhenShareContent = NO;
-    if ( [[UMSocialManager defaultManager]setPlaform:plaform.integerValue appKey:appkey appSecret:nil redirectURL:redirectURL]) {
-        resolve(@(0));
+      UMSocialPlatformType plf = [self platformType: [RCTConvert NSInteger:params[@"type"]]];
+//    NSInteger plaform = [RCTConvert NSInteger:params[@"type"]];
+    if (plf == UMSocialPlatformType_Sms) {
+        if ([[UMSocialManager defaultManager]setPlaform:plf appKey:nil appSecret:nil redirectURL:nil]) {
+
+            resolve(@(0));
+        } else {
+            reject(@"1",@"失败",nil);
+        }
     } else {
-        reject(@"1",@"失败",nil);
+        if ([[UMSocialManager defaultManager]setPlaform:plf appKey:params[@"appId"] appSecret:params[@"secret"] redirectURL:params[@"redirectURL"]]) {
+            
+            resolve(@(0));
+        } else {
+            
+            reject(@"1",@"失败",nil);
+        }
     }
 }
+
 
 
 RCT_EXPORT_METHOD(auth:(NSInteger)platform completion:(RCTResponseSenderBlock)completion)
@@ -274,6 +336,18 @@ RCT_EXPORT_METHOD(auth:(NSInteger)platform completion:(RCTResponseSenderBlock)co
             }
         }
     }];
-    
+}
+
+@end
+
+@implementation UMShareListener
+
+- (NSArray<NSString *> *)supportedEvents
+{
+    return @[@"shareCallBack"];
+}
+
+-(void)shareResult:(BOOL)result{
+    [self sendEventWithName:@"shareCallBack" body:[NSNumber numberWithBool:result]];
 }
 @end

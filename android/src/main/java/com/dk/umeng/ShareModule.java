@@ -10,12 +10,15 @@ import android.text.TextUtils;
 import android.util.Log;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Callback;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.umeng.commonsdk.framework.UMWorkDispatch;
+import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
@@ -44,6 +47,7 @@ public class ShareModule extends ReactContextBaseJavaModule {
     public static void initSocialSDK(Activity activity){
         ma = activity;
     }
+
     @Override
     public String getName() {
         return "UMShareModule";
@@ -51,8 +55,36 @@ public class ShareModule extends ReactContextBaseJavaModule {
     private static void runOnMainThread(Runnable runnable) {
         mSDKHandler.postDelayed(runnable, 0);
     }
+
     @ReactMethod
-    public void share(final String text, final String img, final String weburl, final String title, final int sharemedia, final Callback successCallback){
+    public void setAccount(ReadableMap conf) {
+        Integer type = conf.getInt("type");
+        String appId = conf.getString("appId");
+        String secret = conf.getString("secret");
+        String redirectUrl = "";
+        if(conf.hasKey("redirectUrl")){
+            redirectUrl = conf.getString("redirectUrl");
+        }
+        switch (type){
+            case 0:
+                PlatformConfig.setQQZone(appId, secret);
+            case 1:
+                PlatformConfig.setSinaWeibo(appId, secret, redirectUrl);
+            case 2:
+                PlatformConfig.setWeixin(appId, secret);
+            default:
+                PlatformConfig.setQQZone(appId, secret);
+        }
+
+    }
+
+    @ReactMethod
+    public void share(final ReadableMap msg, final Promise promise){
+        final String text = msg.getString("text");
+        final String img = msg.getString("image");
+        final String weburl = msg.getString("weburl");
+        final String title = msg.getString("title");
+        final int sharemedia = msg.getInt("sharemedia");
         runOnMainThread(new Runnable() {
             @Override
             public void run() {
@@ -67,18 +99,18 @@ public class ShareModule extends ReactContextBaseJavaModule {
                     new ShareAction(ma).withText(text)
                         .withMedia(web)
                         .setPlatform(getShareMedia(sharemedia))
-                        .setCallback(getUMShareListener(successCallback))
+                        .setCallback(getUMShareListener(promise))
                         .share();
                 }else if (getImage(img)!=null){
                     new ShareAction(ma).withText(text)
                         .withMedia(getImage(img))
                         .setPlatform(getShareMedia(sharemedia))
-                        .setCallback(getUMShareListener(successCallback))
+                        .setCallback(getUMShareListener(promise))
                         .share();
                 }else {
                     new ShareAction(ma).withText(text)
                         .setPlatform(getShareMedia(sharemedia))
-                        .setCallback(getUMShareListener(successCallback))
+                        .setCallback(getUMShareListener(promise))
                         .share();
                 }
 
@@ -86,7 +118,7 @@ public class ShareModule extends ReactContextBaseJavaModule {
         });
 
     }
-    private UMShareListener getUMShareListener(final Callback successCallback){
+    private UMShareListener getUMShareListener(final Promise promise){
         return new UMShareListener() {
             @Override
             public void onStart(SHARE_MEDIA share_media) {
@@ -95,20 +127,28 @@ public class ShareModule extends ReactContextBaseJavaModule {
 
             @Override
             public void onResult(SHARE_MEDIA share_media) {
-                successCallback.invoke(SUCCESS, "success");
+                WritableMap result = Arguments.createMap();
+                result.putInt("code",SUCCESS);
+                result.putString("message","success");
+                promise.resolve(result);
             }
 
             @Override
             public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-                successCallback.invoke(ERROR, throwable.getMessage());
+                String code =  Integer.toString(ERROR);
+                promise.reject(code,"error", throwable );
             }
 
             @Override
             public void onCancel(SHARE_MEDIA share_media) {
-                successCallback.invoke(CANCEL, "cancel");
+                WritableMap result = Arguments.createMap();
+                result.putInt("code",CANCEL);
+                result.putString("message","cancel");
+                promise.resolve(result);
             }
         };
     }
+
     private UMImage getImage(String url){
         if (TextUtils.isEmpty(url)){
             return null;
@@ -123,7 +163,7 @@ public class ShareModule extends ReactContextBaseJavaModule {
         }
     }
     @ReactMethod
-    public void auth(final int  sharemedia, final Callback successCallback){
+    public void auth(final int  sharemedia, final Promise promise){
         runOnMainThread(new Runnable() {
             @Override
             public void run() {
@@ -136,23 +176,31 @@ public class ShareModule extends ReactContextBaseJavaModule {
                     @Override
                     public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
                         WritableMap result = Arguments.createMap();
+                        WritableMap res = Arguments.createMap();
                         for (String key:map.keySet()){
                             result.putString(key,map.get(key));
                             Log.e("todoremove","key="+key+"   value"+map.get(key).toString());
                         }
-                        successCallback.invoke(0,result,"success");
+                        res.putInt("code", 0);
+                        res.putString("message", "success");
+                        res.putMap("data", result);
+                        promise.resolve(res);
                     }
 
                     @Override
                     public void onError(SHARE_MEDIA share_media, int i, Throwable throwable) {
                         WritableMap result = Arguments.createMap();
-                        successCallback.invoke(1,result,throwable.getMessage());
+                        promise.reject("1","error",throwable);
                     }
 
                     @Override
                     public void onCancel(SHARE_MEDIA share_media, int i) {
                         WritableMap result = Arguments.createMap();
-                        successCallback.invoke(2,result,"cancel");
+                        WritableMap res = Arguments.createMap();
+                        res.putInt("code",2);
+                        res.putString("message", "cancel");
+                        res.putMap("data", result);
+                        promise.resolve(res);
                     }
                 });
             }
@@ -161,7 +209,7 @@ public class ShareModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void shareboard(final String text, final String img, final String weburl, final String title, final ReadableArray sharemedias, final Callback successCallback){
+    public void shareboard(final String text, final String img, final String weburl, final String title, final ReadableArray sharemedias, final Promise promise){
         runOnMainThread(new Runnable() {
             @Override
             public void run() {
@@ -176,18 +224,18 @@ public class ShareModule extends ReactContextBaseJavaModule {
                     new ShareAction(ma).withText(text)
                         .withMedia(web)
                         .setDisplayList(getShareMedias(sharemedias))
-                        .setCallback(getUMShareListener(successCallback))
+                        .setCallback(getUMShareListener(promise))
                         .open();
                 }else if (getImage(img)!=null){
                     new ShareAction(ma).withText(text)
                         .withMedia(getImage(img))
                         .setDisplayList(getShareMedias(sharemedias))
-                        .setCallback(getUMShareListener(successCallback))
+                        .setCallback(getUMShareListener(promise))
                         .open();
                 }else {
                     new ShareAction(ma).withText(text)
                         .setDisplayList(getShareMedias(sharemedias))
-                        .setCallback(getUMShareListener(successCallback))
+                        .setCallback(getUMShareListener(promise))
                         .open();
                 }
 

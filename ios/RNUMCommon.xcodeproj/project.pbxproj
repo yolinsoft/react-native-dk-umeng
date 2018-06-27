@@ -1,0 +1,495 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		30526D9020D3AE2700913182 /* UMShare in Frameworks */ = {isa = PBXBuildFile; fileRef = B21C677720D394070068D87E /* UMShare */; };
+		B21C678F20D394070068D87E /* UMCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B21C676C20D394070068D87E /* UMCommon.a */; };
+		B21C679020D394070068D87E /* UMPush in Frameworks */ = {isa = PBXBuildFile; fileRef = B21C676E20D394070068D87E /* UMPush */; };
+		B21C679120D394070068D87E /* UMAnalytics in Frameworks */ = {isa = PBXBuildFile; fileRef = B21C677420D394070068D87E /* UMAnalytics */; };
+		B21C679320D394070068D87E /* libSocialWeChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B21C678020D394070068D87E /* libSocialWeChat.a */; };
+		B21C679420D394070068D87E /* libSocialSina.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B21C678320D394070068D87E /* libSocialSina.a */; };
+		B21C679520D394070068D87E /* libSocialQQ.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B21C678720D394070068D87E /* libSocialQQ.a */; };
+		B21C67A020D394150068D87E /* UMAnalyticsModule.m in Sources */ = {isa = PBXBuildFile; fileRef = B21C679720D394140068D87E /* UMAnalyticsModule.m */; };
+		B21C67A120D394150068D87E /* UMShareModule.m in Sources */ = {isa = PBXBuildFile; fileRef = B21C679B20D394140068D87E /* UMShareModule.m */; };
+		B21C67A220D394150068D87E /* UMPushModule.m in Sources */ = {isa = PBXBuildFile; fileRef = B21C679C20D394140068D87E /* UMPushModule.m */; };
+		B21C67A320D394150068D87E /* pushListener.m in Sources */ = {isa = PBXBuildFile; fileRef = B21C679D20D394150068D87E /* pushListener.m */; };
+		B21C67A420D394150068D87E /* RNUMConfigure.m in Sources */ = {isa = PBXBuildFile; fileRef = B21C679F20D394150068D87E /* RNUMConfigure.m */; };
+		B21C67A520D3943D0068D87E /* pushListener.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B21C679920D394140068D87E /* pushListener.h */; };
+		B21C67A620D3943D0068D87E /* UMPushModule.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B21C679620D394140068D87E /* UMPushModule.h */; };
+		B21C67A720D3943D0068D87E /* UMShareModule.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B21C679820D394140068D87E /* UMShareModule.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B21C675B20D393D60068D87E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				B21C67A520D3943D0068D87E /* pushListener.h in CopyFiles */,
+				B21C67A620D3943D0068D87E /* UMPushModule.h in CopyFiles */,
+				B21C67A720D3943D0068D87E /* UMShareModule.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		B21C675D20D393D60068D87E /* libRNUMCommon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNUMCommon.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B21C676A20D394070068D87E /* UMConfigure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMConfigure.h; sourceTree = "<group>"; };
+		B21C676B20D394070068D87E /* UMCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMCommon.h; sourceTree = "<group>"; };
+		B21C676C20D394070068D87E /* UMCommon.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = UMCommon.a; sourceTree = "<group>"; };
+		B21C676E20D394070068D87E /* UMPush */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = UMPush; sourceTree = "<group>"; };
+		B21C676F20D394070068D87E /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
+		B21C677120D394070068D87E /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
+		B21C677220D394070068D87E /* MobClickGameAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickGameAnalytics.h; sourceTree = "<group>"; };
+		B21C677320D394070068D87E /* DplusMobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DplusMobClick.h; sourceTree = "<group>"; };
+		B21C677420D394070068D87E /* UMAnalytics */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = UMAnalytics; sourceTree = "<group>"; };
+		B21C677620D394070068D87E /* UMSocialImageUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialImageUtil.h; sourceTree = "<group>"; };
+		B21C677720D394070068D87E /* UMShare */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = UMShare; sourceTree = "<group>"; };
+		B21C677820D394070068D87E /* UMCommonLogMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMCommonLogMacros.h; sourceTree = "<group>"; };
+		B21C677920D394070068D87E /* UMSocialPlatformProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialPlatformProvider.h; sourceTree = "<group>"; };
+		B21C677A20D394070068D87E /* UMSocialHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialHandler.h; sourceTree = "<group>"; };
+		B21C677B20D394070068D87E /* UMSocialPlatformConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialPlatformConfig.h; sourceTree = "<group>"; };
+		B21C677C20D394070068D87E /* UMSocialWarterMarkConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialWarterMarkConfig.h; sourceTree = "<group>"; };
+		B21C677D20D394070068D87E /* UMSocialCoreImageUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialCoreImageUtils.h; sourceTree = "<group>"; };
+		B21C678020D394070068D87E /* libSocialWeChat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSocialWeChat.a; sourceTree = "<group>"; };
+		B21C678120D394070068D87E /* UMSocialWechatHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialWechatHandler.h; sourceTree = "<group>"; };
+		B21C678320D394070068D87E /* libSocialSina.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSocialSina.a; sourceTree = "<group>"; };
+		B21C678420D394070068D87E /* UMSocialSinaHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialSinaHandler.h; sourceTree = "<group>"; };
+		B21C678620D394070068D87E /* UMSocialQQHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialQQHandler.h; sourceTree = "<group>"; };
+		B21C678720D394070068D87E /* libSocialQQ.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSocialQQ.a; sourceTree = "<group>"; };
+		B21C678820D394070068D87E /* UMSocialGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialGlobal.h; sourceTree = "<group>"; };
+		B21C678920D394070068D87E /* UMShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMShare.h; sourceTree = "<group>"; };
+		B21C678A20D394070068D87E /* UMSocialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialManager.h; sourceTree = "<group>"; };
+		B21C678B20D394070068D87E /* UMSocialMessageObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialMessageObject.h; sourceTree = "<group>"; };
+		B21C678C20D394070068D87E /* UMSocialResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialResponse.h; sourceTree = "<group>"; };
+		B21C678D20D394070068D87E /* UMSociallogMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSociallogMacros.h; sourceTree = "<group>"; };
+		B21C678E20D394070068D87E /* UMSocialDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSocialDataManager.h; sourceTree = "<group>"; };
+		B21C679620D394140068D87E /* UMPushModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMPushModule.h; sourceTree = "<group>"; };
+		B21C679720D394140068D87E /* UMAnalyticsModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMAnalyticsModule.m; sourceTree = "<group>"; };
+		B21C679820D394140068D87E /* UMShareModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMShareModule.h; sourceTree = "<group>"; };
+		B21C679920D394140068D87E /* pushListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pushListener.h; sourceTree = "<group>"; };
+		B21C679A20D394140068D87E /* UMAnalyticsModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMAnalyticsModule.h; sourceTree = "<group>"; };
+		B21C679B20D394140068D87E /* UMShareModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMShareModule.m; sourceTree = "<group>"; };
+		B21C679C20D394140068D87E /* UMPushModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMPushModule.m; sourceTree = "<group>"; };
+		B21C679D20D394150068D87E /* pushListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pushListener.m; sourceTree = "<group>"; };
+		B21C679E20D394150068D87E /* RNUMConfigure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNUMConfigure.h; sourceTree = "<group>"; };
+		B21C679F20D394150068D87E /* RNUMConfigure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNUMConfigure.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B21C675A20D393D60068D87E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				30526D9020D3AE2700913182 /* UMShare in Frameworks */,
+				B21C679320D394070068D87E /* libSocialWeChat.a in Frameworks */,
+				B21C679020D394070068D87E /* UMPush in Frameworks */,
+				B21C678F20D394070068D87E /* UMCommon.a in Frameworks */,
+				B21C679120D394070068D87E /* UMAnalytics in Frameworks */,
+				B21C679520D394070068D87E /* libSocialQQ.a in Frameworks */,
+				B21C679420D394070068D87E /* libSocialSina.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		30526D8F20D3AE2700913182 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B21C675420D393D60068D87E = {
+			isa = PBXGroup;
+			children = (
+				B21C675F20D393D60068D87E /* RNUMCommon */,
+				B21C675E20D393D60068D87E /* Products */,
+				30526D8F20D3AE2700913182 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		B21C675E20D393D60068D87E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B21C675D20D393D60068D87E /* libRNUMCommon.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B21C675F20D393D60068D87E /* RNUMCommon */ = {
+			isa = PBXGroup;
+			children = (
+				B21C679920D394140068D87E /* pushListener.h */,
+				B21C679D20D394150068D87E /* pushListener.m */,
+				B21C679E20D394150068D87E /* RNUMConfigure.h */,
+				B21C679F20D394150068D87E /* RNUMConfigure.m */,
+				B21C679A20D394140068D87E /* UMAnalyticsModule.h */,
+				B21C679720D394140068D87E /* UMAnalyticsModule.m */,
+				B21C679620D394140068D87E /* UMPushModule.h */,
+				B21C679C20D394140068D87E /* UMPushModule.m */,
+				B21C679820D394140068D87E /* UMShareModule.h */,
+				B21C679B20D394140068D87E /* UMShareModule.m */,
+				B21C677020D394070068D87E /* UMAnalytics */,
+				B21C676920D394070068D87E /* UMCommon */,
+				B21C676D20D394070068D87E /* UMPush */,
+				B21C677520D394070068D87E /* UMShare */,
+			);
+			path = RNUMCommon;
+			sourceTree = "<group>";
+		};
+		B21C676920D394070068D87E /* UMCommon */ = {
+			isa = PBXGroup;
+			children = (
+				B21C676A20D394070068D87E /* UMConfigure.h */,
+				B21C676B20D394070068D87E /* UMCommon.h */,
+				B21C676C20D394070068D87E /* UMCommon.a */,
+			);
+			path = UMCommon;
+			sourceTree = "<group>";
+		};
+		B21C676D20D394070068D87E /* UMPush */ = {
+			isa = PBXGroup;
+			children = (
+				B21C676E20D394070068D87E /* UMPush */,
+				B21C676F20D394070068D87E /* UMessage.h */,
+			);
+			path = UMPush;
+			sourceTree = "<group>";
+		};
+		B21C677020D394070068D87E /* UMAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				B21C677120D394070068D87E /* MobClick.h */,
+				B21C677220D394070068D87E /* MobClickGameAnalytics.h */,
+				B21C677320D394070068D87E /* DplusMobClick.h */,
+				B21C677420D394070068D87E /* UMAnalytics */,
+			);
+			path = UMAnalytics;
+			sourceTree = "<group>";
+		};
+		B21C677520D394070068D87E /* UMShare */ = {
+			isa = PBXGroup;
+			children = (
+				B21C677620D394070068D87E /* UMSocialImageUtil.h */,
+				B21C677720D394070068D87E /* UMShare */,
+				B21C677820D394070068D87E /* UMCommonLogMacros.h */,
+				B21C677920D394070068D87E /* UMSocialPlatformProvider.h */,
+				B21C677A20D394070068D87E /* UMSocialHandler.h */,
+				B21C677B20D394070068D87E /* UMSocialPlatformConfig.h */,
+				B21C677C20D394070068D87E /* UMSocialWarterMarkConfig.h */,
+				B21C677D20D394070068D87E /* UMSocialCoreImageUtils.h */,
+				B21C677E20D394070068D87E /* SocialLibraries */,
+				B21C678820D394070068D87E /* UMSocialGlobal.h */,
+				B21C678920D394070068D87E /* UMShare.h */,
+				B21C678A20D394070068D87E /* UMSocialManager.h */,
+				B21C678B20D394070068D87E /* UMSocialMessageObject.h */,
+				B21C678C20D394070068D87E /* UMSocialResponse.h */,
+				B21C678D20D394070068D87E /* UMSociallogMacros.h */,
+				B21C678E20D394070068D87E /* UMSocialDataManager.h */,
+			);
+			path = UMShare;
+			sourceTree = "<group>";
+		};
+		B21C677E20D394070068D87E /* SocialLibraries */ = {
+			isa = PBXGroup;
+			children = (
+				B21C677F20D394070068D87E /* WeChat */,
+				B21C678220D394070068D87E /* Sina */,
+				B21C678520D394070068D87E /* QQ */,
+			);
+			path = SocialLibraries;
+			sourceTree = "<group>";
+		};
+		B21C677F20D394070068D87E /* WeChat */ = {
+			isa = PBXGroup;
+			children = (
+				B21C678020D394070068D87E /* libSocialWeChat.a */,
+				B21C678120D394070068D87E /* UMSocialWechatHandler.h */,
+			);
+			path = WeChat;
+			sourceTree = "<group>";
+		};
+		B21C678220D394070068D87E /* Sina */ = {
+			isa = PBXGroup;
+			children = (
+				B21C678320D394070068D87E /* libSocialSina.a */,
+				B21C678420D394070068D87E /* UMSocialSinaHandler.h */,
+			);
+			path = Sina;
+			sourceTree = "<group>";
+		};
+		B21C678520D394070068D87E /* QQ */ = {
+			isa = PBXGroup;
+			children = (
+				B21C678620D394070068D87E /* UMSocialQQHandler.h */,
+				B21C678720D394070068D87E /* libSocialQQ.a */,
+			);
+			path = QQ;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B21C675C20D393D60068D87E /* RNUMCommon */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B21C676620D393D60068D87E /* Build configuration list for PBXNativeTarget "RNUMCommon" */;
+			buildPhases = (
+				B21C675920D393D60068D87E /* Sources */,
+				B21C675A20D393D60068D87E /* Frameworks */,
+				B21C675B20D393D60068D87E /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RNUMCommon;
+			productName = RNUMCommon;
+			productReference = B21C675D20D393D60068D87E /* libRNUMCommon.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B21C675520D393D60068D87E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = shanghaiDouke.com;
+				TargetAttributes = {
+					B21C675C20D393D60068D87E = {
+						CreatedOnToolsVersion = 9.4;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = B21C675820D393D60068D87E /* Build configuration list for PBXProject "RNUMCommon" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = B21C675420D393D60068D87E;
+			productRefGroup = B21C675E20D393D60068D87E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B21C675C20D393D60068D87E /* RNUMCommon */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B21C675920D393D60068D87E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B21C67A220D394150068D87E /* UMPushModule.m in Sources */,
+				B21C67A020D394150068D87E /* UMAnalyticsModule.m in Sources */,
+				B21C67A420D394150068D87E /* RNUMConfigure.m in Sources */,
+				B21C67A120D394150068D87E /* UMShareModule.m in Sources */,
+				B21C67A320D394150068D87E /* pushListener.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		B21C676420D393D60068D87E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		B21C676520D393D60068D87E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B21C676720D393D60068D87E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = E9J732K284;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/RNUMCommon/**",
+				);
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/RNUMCommon/**";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/RNUMCommon/UMCommon",
+					"$(PROJECT_DIR)/RNUMCommon/UMPush",
+					"$(PROJECT_DIR)/RNUMCommon/UMAnalytics",
+					"$(PROJECT_DIR)/RNUMCommon/UMShare",
+					"$(PROJECT_DIR)/RNUMCommon/UMShare/SocialLibraries/WeChat",
+					"$(PROJECT_DIR)/RNUMCommon/UMShare/SocialLibraries/Sina",
+					"$(PROJECT_DIR)/RNUMCommon/UMShare/SocialLibraries/QQ",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B21C676820D393D60068D87E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = E9J732K284;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/RNUMCommon/**",
+				);
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/RNUMCommon/**";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/RNUMCommon/UMCommon",
+					"$(PROJECT_DIR)/RNUMCommon/UMPush",
+					"$(PROJECT_DIR)/RNUMCommon/UMAnalytics",
+					"$(PROJECT_DIR)/RNUMCommon/UMShare",
+					"$(PROJECT_DIR)/RNUMCommon/UMShare/SocialLibraries/WeChat",
+					"$(PROJECT_DIR)/RNUMCommon/UMShare/SocialLibraries/Sina",
+					"$(PROJECT_DIR)/RNUMCommon/UMShare/SocialLibraries/QQ",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B21C675820D393D60068D87E /* Build configuration list for PBXProject "RNUMCommon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B21C676420D393D60068D87E /* Debug */,
+				B21C676520D393D60068D87E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B21C676620D393D60068D87E /* Build configuration list for PBXNativeTarget "RNUMCommon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B21C676720D393D60068D87E /* Debug */,
+				B21C676820D393D60068D87E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B21C675520D393D60068D87E /* Project object */;
+}

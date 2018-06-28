@@ -2,11 +2,12 @@ import {
   NativeModules,
   Platform,
   DeviceEventEmitter,
-  NativeAppEventEmitter,
+  NativeEventEmitter,
   AppState
 } from 'react-native';
 
 const UMPushModule = NativeModules.UMPushModule;
+const pushListener = new NativeEventEmitter(NativeModules.pushListener);
 
 let UMPush = {
   getDeviceToken() {
@@ -15,7 +16,7 @@ let UMPush = {
 
   didReceiveMessage() {
     return new Promise((resolve, reject) => {
-      this.addEventListener(UMPushModule.DidReceiveMessage, message => {
+      this.addEventListener('didReceiveMessage', message => {
         //处于后台时，拦截收到的消息
         if (AppState.currentState === 'background') {
           return;
@@ -27,7 +28,7 @@ let UMPush = {
 
   didOpenMessage() {
     return new Promise((resolve, reject) => {
-      this.addEventListener(UMPushModule.DidOpenMessage, message => {
+      this.addEventListener('didOpenMessage', message => {
         resolve(message);
       });
     });
@@ -39,7 +40,7 @@ let UMPush = {
         handler(event);
       });
     } else {
-      return NativeAppEventEmitter.addListener(eventName, event => {
+      return pushListener.addListener(eventName, event => {
         handler(event);
       });
     }

@@ -42,8 +42,8 @@ public class PushModule extends ReactContextBaseJavaModule implements LifecycleE
     private final int CANCEL = -1;
 
     protected static final String TAG = PushModule.class.getSimpleName();
-    protected static final String DidReceiveMessage = "DidReceiveMessage";
-    protected static final String DidOpenMessage = "DidOpenMessage";
+    protected static final String DidReceiveMessage = "didReceiveMessage";
+    protected static final String DidOpenMessage = "didOpenMessage";
 
     private static Handler mSDKHandler = new Handler(Looper.getMainLooper());
     private ReactApplicationContext context;

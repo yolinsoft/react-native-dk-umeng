@@ -10,21 +10,24 @@
 #import <UMPush/UMessage.h>
 #import <React/RCTConvert.h>
 #import <React/RCTEventDispatcher.h>
+static NSString * const deviceTokenStr =  @"deviceToken";
 @interface UMPushModule()
-@property (nonatomic, copy) NSString *token;
+//@property (nonatomic, copy) NSString *token;
 @end
 @implementation UMPushModule
-
+{
+    bool _hasListeners;
+}
 RCT_EXPORT_MODULE();
 
-+(instancetype)shareInstance{
-    static dispatch_once_t onceToken;
-    static UMPushModule *sharedInstance = nil;
-    dispatch_once(&onceToken, ^{
-        sharedInstance = [[self alloc]init];
-    });
-    return sharedInstance;
-}
+//+(instancetype)shareInstance{
+//    static dispatch_once_t onceToken;
+//    static UMPushModule *sharedInstance = nil;
+//    dispatch_once(&onceToken, ^{
+//        sharedInstance = [[self alloc]init];
+//    });
+//    return sharedInstance;
+//}
 
 //  /**未知错误*/
 //  kUMessageErrorUnknown = 0,
@@ -135,7 +138,7 @@ RCT_EXPORT_MODULE();
   }
 }
 
--(void)registerWithAppkey:(NSString *)appkey launchOptions:(NSDictionary *)launchOptions{
++(void)registerWithAppkey:(NSString *)appkey launchOptions:(NSDictionary *)launchOptions{
 //    UMessage
     // Push's basic setting
     UMessageRegisterEntity * entity = [[UMessageRegisterEntity alloc] init];
@@ -150,25 +153,32 @@ RCT_EXPORT_MODULE();
     }];
 }
 
--(void)registerDeviceToken:(NSData *)deviceToken{
-    self.token = [[[[deviceToken description] stringByReplacingOccurrencesOfString: @"<" withString: @""]
++(void)registerDeviceToken:(NSData *)deviceToken{
+    
+    NSString *token = [[[[deviceToken description] stringByReplacingOccurrencesOfString: @"<" withString: @""]
                                    stringByReplacingOccurrencesOfString: @">" withString: @""]
                   stringByReplacingOccurrencesOfString: @" " withString: @""];
+    if (token.length > 0) {
+        [[NSUserDefaults standardUserDefaults]setObject:token forKey:deviceTokenStr];
+    }
    [UMessage registerDeviceToken:deviceToken];
 }
 
--(void)didReceiveRemoteNotification:(NSDictionary *)userInfo{
++(void)didReceiveRemoteNotification:(NSDictionary *)userInfo{
     [UMessage didReceiveRemoteNotification:userInfo];
 }
 
--(void)setAutoAlert:(BOOL)autoAlert{
++(void)setAutoAlert:(BOOL)autoAlert{
     [UMessage setAutoAlert:autoAlert];
 }
 
+
 RCT_EXPORT_METHOD(getDeviceToken:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject){
-    if (self.token) {
-        resolve(self.token);
+    NSString *token = [[NSUserDefaults standardUserDefaults]objectForKey:deviceTokenStr];
+    
+    if (token.length > 0) {
+        resolve([token copy]);
     } else {
         reject(@"1",@"无token",nil);
     }
@@ -226,7 +236,4 @@ RCT_EXPORT_METHOD(deleteAlias:(NSString *)name type:(NSString *)type resolver:(R
                        rejecter:(RCTPromiseRejectBlock)reject];
   }];
 }
-
-
-
 @end

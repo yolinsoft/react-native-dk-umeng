@@ -10,7 +10,5 @@
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventEmitter.h>
 @interface pushListener : RCTEventEmitter<RCTBridgeModule>
-+(instancetype)shareInstance;
--(void)didReceiveRemoteNotification:(NSDictionary *)userInfo;
--(void)openRemoteNotification:(NSDictionary *)userInfo;
+
 @end

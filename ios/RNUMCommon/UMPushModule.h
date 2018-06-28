@@ -11,9 +11,9 @@
 #import <React/RCTBridgeModule.h>
 
 @interface UMPushModule : NSObject <RCTBridgeModule>
-+(instancetype)shareInstance;
--(void)registerWithAppkey:(NSString *)appkey launchOptions:(NSDictionary *)launchOptions;
--(void)registerDeviceToken:(NSData *)deviceToken;
--(void)didReceiveRemoteNotification:(NSDictionary *)userInfo;
--(void)setAutoAlert:(BOOL)autoAlert;
+//+(instancetype)shareInstance;
++(void)registerWithAppkey:(NSString *)appkey launchOptions:(NSDictionary *)launchOptions;
++(void)registerDeviceToken:(NSData *)deviceToken;
++(void)didReceiveRemoteNotification:(NSDictionary *)userInfo;
++(void)setAutoAlert:(BOOL)autoAlert;
 @end

@@ -216,9 +216,9 @@ URL Scheme是通过系统找到并跳转对应app的一类设置，通过向项�
 
 平台 | 格式 | 举例 | 备注 
 ---- | ---- | ----| ---- 
-微信 | 微信appKey | wxdc1e388c3822c80b |
+微信 | 微信appKey | wx**** |
 
-其他平台请参考umeng官方 https://developer.umeng.com/docs/66632/detail/66825
+其他平台请参考umeng官方 https://developer.umeng.com/docs/66632/detail/66825
 
 AppDelegate.m
 

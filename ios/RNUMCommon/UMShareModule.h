@@ -8,15 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <React/RCTBridgeModule.h>
-
-@interface UMShareModule : NSObject <RCTBridgeModule>
+#import <React/RCTEventEmitter.h>
+@interface UMShareModule : RCTEventEmitter <RCTBridgeModule>
 +(BOOL)handleOpenURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication  annotation:(id)annotation;
 +(BOOL)handleOpenURL:(NSURL *)url;
 @end
 
-//#import <Foundation/Foundation.h>
-#import <React/RCTBridgeModule.h>
-#import <React/RCTEventEmitter.h>
-@interface UMShareListener: RCTEventEmitter <RCTBridgeModule>
--(void)shareResult:(BOOL)result;
-@end

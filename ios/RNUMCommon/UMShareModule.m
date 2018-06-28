@@ -12,17 +12,22 @@
 #import <React/RCTConvert.h>
 #import <React/RCTEventDispatcher.h>
 //#import <MessageUI/MessageUI.h>
+static NSString * const openShareUrl = @"openShareUrl";
 @interface UMShareModule()
 @property (nonatomic, strong) UIViewController *smsViewController;
 @end
 @implementation UMShareModule
 
 RCT_EXPORT_MODULE();
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
 
 -(instancetype)init{
     self = [super init];
     if (self) {
         [UMSocialGlobal shareInstance].isUsingHttpsWhenShareContent = NO;
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(shareResult:) name:openShareUrl object:nil];
     }
     return self;
 }
@@ -147,12 +152,17 @@ RCT_EXPORT_MODULE();
 
 +(BOOL)handleOpenURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication  annotation:(id)annotation{
     BOOL result =  [[UMSocialManager defaultManager]handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
-     [[UMShareListener new]shareResult:result];
+//     [[UMShareListener new]shareResult:result];
+//    [self performSelector:@selector(shareResult:) withObject:@(result)];
+    [[NSNotificationCenter defaultCenter]postNotificationName:openShareUrl object:nil userInfo:@{@"result":@(result)}];
     return result;
 }
 +(BOOL)handleOpenURL:(NSURL *)url{
     BOOL result = [[UMSocialManager defaultManager]handleOpenURL:url];
-    [[UMShareListener new]shareResult:result];
+//    [self shareResult:result];
+//    [self performSelector:@selector(shareResult:) withObject:@(result)];
+    [[NSNotificationCenter defaultCenter]postNotificationName:openShareUrl object:nil userInfo:@{@"result":@(result)}];
+
     return result;
 }
 //是否安装某个平台
@@ -338,16 +348,17 @@ RCT_EXPORT_METHOD(auth:(NSInteger)platform completion:(RCTResponseSenderBlock)co
     }];
 }
 
-@end
-
-@implementation UMShareListener
-
+#pragma 给js 发送消息
 - (NSArray<NSString *> *)supportedEvents
 {
     return @[@"shareCallBack"];
 }
 
--(void)shareResult:(BOOL)result{
-    [self sendEventWithName:@"shareCallBack" body:[NSNumber numberWithBool:result]];
+
+-(void)shareResult:(NSNotification *)notification{
+    NSNumber * result = notification.userInfo[@"result"];
+     [self sendEventWithName:@"shareCallBack" body:result];
 }
+
 @end
+

@@ -62,8 +62,8 @@ public class ShareModule extends ReactContextBaseJavaModule {
         String appId = conf.getString("appId");
         String secret = conf.getString("secret");
         String redirectUrl = "";
-        if(conf.hasKey("redirectUrl")){
-            redirectUrl = conf.getString("redirectUrl");
+        if(conf.hasKey("redirectURL")){
+            redirectUrl = conf.getString("redirectURL");
         }
         switch (type){
             case 0:

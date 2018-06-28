@@ -97,7 +97,7 @@ AndroidManifest.xml
       android:configChanges="orientation|keyboardHidden|screenSize"/>
 ```
 
-包名下添加 wxapi 文件夹,然后添加WXEntryActivity.java
+包名下添加 wxapi 文件夹,然后添加 WXEntryActivity.java
 路径 java/com/.../wxapi/WXEntryActivity.java
 
 WXEntryActivity.java
@@ -197,7 +197,6 @@ public class MainApplication extends PushApplication implements ReactApplication
 }
 ```
 
-
 #### 集成到 ios
 
 加入以下系统库
@@ -207,18 +206,6 @@ libsqlite3.tbd
 CoreGraphics.framework
 Photos.framework
 ```
-
-配置URL Scheme
-
-URL Scheme是通过系统找到并跳转对应app的一类设置，通过向项目中的info.plist文件中加入URL types可使用第三方平台所注册的appkey信息向系统注册你的app，当跳转到第三方应用授权或分享后，可直接跳转回你的app。
-
-添加URL Types可工程设置面板设置
-
-平台 | 格式 | 举例 | 备注 
----- | ---- | ----| ---- 
-微信 | 微信appKey | wx**** |
-
-其他平台请参考umeng官方 https://developer.umeng.com/docs/66632/detail/66825
 
 AppDelegate.m
 
@@ -238,13 +225,13 @@ static NSString * const openPushNoti = @"openPushNoti";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  
+
   NSString *filePath = [[NSBundle mainBundle]pathForResource:@"Info" ofType:@"plist"];
   NSDictionary *dic = [[NSDictionary alloc]initWithContentsOfFile:filePath];
   NSString *UMENG_APPKEY = dic[@"UMENG_APPKEY"];
   NSString *UMENG_CHANNEL   = dic[@"UMENG_CHANNEL"];
   NSString *UMENG_MESSAGE_SECRET = dic[@"UMENG_MESSAGE_SECRET"];
-  
+
   //友盟sdk公共配置
   [RNUMConfigure initWithAppkey:UMENG_APPKEY channel:UMENG_CHANNEL];
   [UNUserNotificationCenter currentNotificationCenter].delegate=self;
@@ -368,10 +355,22 @@ Info.plist
 
 #### 分享
 
-| 方法名   | 参数     | 类型 | 描述 |
-| -------- | -------- | ---- | ---- |
-| setAccount | {type: 0,appId: '',secret: '',redirectURL: ''} | func | 设置平台秘钥<br />type 0: QQ 1:Sina 2:WeiXin |
-| share | {title: '',text: '',image:'',weburl: '',sharemedia: 0 } | func | 无面板分享<br />type 0:QQ 1:SINA 2:WEIXIN 3:WEIXIN_CIRCLE 4:QZONE 6:SHARE_MEDIA.SMS |
+| 方法名     | 参数                                                    | 类型 | 描述                                                                                |
+| ---------- | ------------------------------------------------------- | ---- | ----------------------------------------------------------------------------------- |
+| setAccount | {type: 0,appId: '',secret: '',redirectURL: ''}          | func | 设置平台秘钥<br />type 0: QQ 1:Sina 2:WeiXin                                        |
+| share      | {title: '',text: '',image:'',weburl: '',sharemedia: 0 } | func | 无面板分享<br />type 0:QQ 1:SINA 2:WEIXIN 3:WEIXIN_CIRCLE 4:QZONE 6:SHARE_MEDIA.SMS |
+
+ios 配置 URL Scheme
+
+URL Scheme 是通过系统找到并跳转对应 app 的一类设置，通过向项目中的 info.plist 文件中加入 URL types 可使用第三方平台所注册的 appkey 信息向系统注册你的 app，当跳转到第三方应用授权或分享后，可直接跳转回你的 app。
+
+添加 URL Types 可工程设置面板设置
+
+| 平台 | 格式        | 举例       | 备注 |
+| ---- | ----------- | ---------- | ---- |
+| 微信 | 微信 appKey | wx\*\*\*\* |
+
+其他平台请参考 https://developer.umeng.com/docs/66632/detail/66825
 
 #### 推送
 
@@ -380,6 +379,14 @@ Info.plist
 | getDeviceToken    | 无   | promise | 获取 DeviceToken               |
 | didReceiveMessage | 无   | promise | 接收到推送消息回调的方法       |
 | didOpenMessage    | 无   | promise | 点击推送消息打开应用回调的方法 |
+
+ios 启用推送设置 Enabling Push Notifications（否则会报 iOS device_token 无效）
+
+参考 https://developer.apple.com/library/content/documentation/IDEs/Conceptual/AppDistributionGuide/AddingCapabilities/AddingCapabilities.html#//apple_ref/doc/uid/TP40012582-CH26-SW6
+
+ios 静默推送 设置 Enabling [Background Modes] and Checked [Remote notifications]
+
+参考 https://developer.umeng.com/docs/66632/detail/66734
 
 #### 统计
 

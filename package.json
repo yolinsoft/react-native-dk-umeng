@@ -1,6 +1,6 @@
 {
   "name": "react-native-dk-umeng",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "react native 友盟分享、推送、统计",
   "main": "index.js",
   "scripts": {
